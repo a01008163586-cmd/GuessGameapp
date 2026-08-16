@@ -21,20 +21,10 @@ jobs:
         sudo apt-get install -y build-essential libffi-dev libssl-dev ccache git zip unzip openjdk-17-jdk autoconf automake libtool pkg-config zlib1g-dev
         pip install --upgrade pip setuptools "buildozer>=1.5.0" kivy
 
-    - name: Prepare Android SDK Licenses
-      run: |
-        mkdir -p ~/.android
-        touch ~/.android/repositories.cfg
-        # إنشاء ملف التراخيص يدوياً
-        mkdir -p $HOME/.android/licenses/
-        echo "8933bad161af4178b1185d1a37fbf41ea5261c55" > $HOME/.android/licenses/android-sdk-license
-        echo "d56f518747835165620950669229212001419717" > $HOME/.android/licenses/android-sdk-license
-        echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > $HOME/.android/licenses/android-sdk-license
-
     - name: Build APK with Buildozer
       run: |
-        # بناء مباشر بدون استخدام yes لتجنب خطأ Broken pipe
-        buildozer -v android debug
+        # استخدام yes مع الموافقة المستمرة
+        yes | buildozer -v android debug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
