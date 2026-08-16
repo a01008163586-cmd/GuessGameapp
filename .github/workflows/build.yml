@@ -22,9 +22,11 @@ jobs:
         sudo apt-get install -y build-essential libffi-dev libssl-dev ccache git zip unzip openjdk-17-jdk
         pip install --upgrade pip setuptools buildozer kivy
 
-    - name: Accept Android SDK Licenses
+    - name: Accept Android SDK Licenses for Buildozer
       run: |
         yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+        mkdir -p ~/.buildozer/android/platform/android-sdk/licenses
+        cp -r $ANDROID_HOME/licenses/* ~/.buildozer/android/platform/android-sdk/licenses/ || true
 
     - name: Build APK with Buildozer
       run: |
