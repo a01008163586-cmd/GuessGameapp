@@ -7,7 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
 
@@ -22,13 +21,13 @@ jobs:
         sudo apt-get install -y build-essential libffi-dev libssl-dev ccache git zip unzip openjdk-17-jdk autoconf automake libtool pkg-config zlib1g-dev
         pip install --upgrade pip setuptools "buildozer>=1.5.0" kivy
 
-    - name: Accept Android SDK Licenses
+    - name: Clean build cache
       run: |
-        mkdir -p ~/.android
-        touch ~/.android/repositories.cfg
+        rm -rf .buildozer/android/platform/build-*
 
     - name: Build APK with Buildozer
       run: |
+        # استخدام yes للموافقة التلقائية على التراخيص
         yes | buildozer -v android debug
 
     - name: Upload APK
