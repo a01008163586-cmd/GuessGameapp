@@ -20,11 +20,11 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y build-essential libffi-dev libssl-dev ccache git zip unzip openjdk-17-jdk autoconf automake libtool pkg-config zlib1g-dev
-        pip install --upgrade pip setuptools buildozer kivy
+        pip install --upgrade pip setuptools "buildozer>=1.5.0" kivy
 
     - name: Build APK with Buildozer
       run: |
-        yes | buildozer -v android debug
+        buildozer -v android debug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
